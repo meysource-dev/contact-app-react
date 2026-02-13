@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'bnazanin-regular';
+  src: url('/src/assets/fonts/BNAZANB.woff2') format('woff2'),
+       url('/src/assets/fonts/BNAZANB.woff') format('woff');
+  font-weight: 400;          /* normal */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'bnazanin-bold';
+  src: url('/src/assets/fonts/BNAZANB-Bold.woff2') format('woff2'),
+       url('/src/assets/fonts/BNAZANB-Bold.woff') format('woff');
+  font-weight: 700;          /* bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+:root {
+  font-family: 'bnazanin-regular', Tahoma, 'Segoe UI', sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: auto;
+  padding: 10px;
+  max-width: 1000px;
+  min-height: 100vh;
+}
+
