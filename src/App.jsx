@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Form from "./components/form";
+import { Toaster } from "react-hot-toast";
+import Form from "./components/Form";
 import ContactList from "./components/ContactList";
 
 const App = () => {
@@ -25,11 +26,11 @@ const App = () => {
 
       <Form
         setContacts={setContacts}
-        editingContact={null}
-        setEditingContact={() => {}}
+        editingContact={editingContact}
+        setEditingContact={setEditingContact}
         onFocusInput={handleFocusForm}
       />
-      {/* سرچ باکس جدید */}
+      
       <div style={{ marginBottom: "24px" }}>
         <input
           type="text"
@@ -98,6 +99,8 @@ const App = () => {
           هیچ مخاطبی با جستجوی "{searchQuery}" پیدا نشد
         </p>
       )}
+
+      <Toaster position="top-right" />
     </div>
   );
 };

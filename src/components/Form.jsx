@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Form = ({ setContacts, editingContact, setEditingContact }) => {
   const isEditing = !!editingContact;
@@ -15,7 +16,6 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
     mobile: "",
   });
 
-  
   useEffect(() => {
     if (editingContact) {
       setContact({
@@ -23,7 +23,7 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
         lastName: editingContact.lastName || "",
         mobile: editingContact.mobile || "",
       });
-      setErrors({ name: "", lastName: "", mobile: "" }); 
+      setErrors({ name: "", lastName: "", mobile: "" });
     } else {
       setContact({ name: "", lastName: "", mobile: "" });
       setErrors({ name: "", lastName: "", mobile: "" });
@@ -38,7 +38,6 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
       [name]: value,
     }));
 
-   
     setErrors((prev) => ({
       ...prev,
       [name]: "",
@@ -57,7 +56,7 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
     if (!contact.mobile.trim()) {
       newErrors.mobile = "شماره موبایل اجباری است";
       isValid = false;
-    } 
+    }
 
     setErrors(newErrors);
     return isValid;
@@ -67,26 +66,27 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
     e.preventDefault();
 
     if (!validateForm()) {
-      return; 
+      return;
     }
 
     if (isEditing) {
-      
       setContacts((prev) =>
         prev.map((c) =>
-          c.id === editingContact.id ? { ...c, ...contact } : c
-        )
+          c.id === editingContact.id ? { ...c, ...contact } : c,
+        ),
       );
+      toast.success("تغییرات با موفقیت اعمال شد");
       setEditingContact(null);
     } else {
-      
       setContacts((prev) => [
         ...prev,
         { ...contact, id: Date.now() + Math.random() },
       ]);
-      setContact({ name: "", lastName: "", mobile: "" });
-      setErrors({ name: "", lastName: "", mobile: "" });
+      toast.success("مخاطب با موفقیت اضافه شد");
     }
+
+    setContact({ name: "", lastName: "", mobile: "" });
+    setErrors({ name: "", lastName: "", mobile: "" });
   };
 
   const cancelHandler = () => {
@@ -124,7 +124,13 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
             }}
           />
           {errors.name && (
-            <div style={{ color: "#d32f2f", fontSize: "0.85rem", marginTop: "4px" }}>
+            <div
+              style={{
+                color: "#d32f2f",
+                fontSize: "0.85rem",
+                marginTop: "4px",
+              }}
+            >
               {errors.name}
             </div>
           )}
@@ -144,7 +150,6 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
               border: "1px solid #ccc",
             }}
           />
-         
         </div>
 
         <div style={{ marginBottom: "24px" }}>
@@ -164,13 +169,21 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
             }}
           />
           {errors.mobile && (
-            <div style={{ color: "#d32f2f", fontSize: "0.85rem", marginTop: "4px" }}>
+            <div
+              style={{
+                color: "#d32f2f",
+                fontSize: "0.85rem",
+                marginTop: "4px",
+              }}
+            >
               {errors.mobile}
             </div>
           )}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
+        <div
+          style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}
+        >
           {isEditing && (
             <button
               type="button"
@@ -206,5 +219,5 @@ const Form = ({ setContacts, editingContact, setEditingContact }) => {
     </div>
   );
 };
-
+<Toaster/>
 export default Form;
